@@ -9,3 +9,5 @@
 
 # Les fantômes (mange fantôme -> nbr de points 1er fantome + 200pts, 2ème + 400pts, 3ème + 800pts, 4ème + 1600pts
 # et appel de la classe fantome Disparition)
+
+# Next_input : on stocke la prochaine direction que le joueur veut prendre

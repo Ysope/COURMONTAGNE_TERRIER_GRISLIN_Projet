@@ -2,15 +2,6 @@ import pygame as pg             # PYGAME package
 from pygame.locals import *     # PYGAME constant & functions
 from sys import exit            # exit script 
 
-# Initialiser Pygame
-pg.init()
-
-# Créer une surface (par exemple, la fenêtre principale)
-screen = pg.display.set_mode((800, 600))
-
-
-
-# Variables
 """
 # Charger la spritesheet
 spritesheet = pg.image.load('Sprite/spritesheet.png')
@@ -38,20 +29,8 @@ class Sprite:
 
 image = Sprite.sprites[1]
 """
-image = pg.image.load('Sprite/pacman.png')
-# Méthode pour afficher les éléments
-# Probablement à modifier une fois que les classes Entity seront créées
-
-def Affichage(screen, image):
-
-    # Position où l'image sera dessinée
-    position = (100, 100)
-
-    # Dessiner l'image sur la surface
-    screen.blit(image, position)
-
-    # Mettre à jour l'affichage
-    pg.display.flip()
+# Charger l'image
+# image = pg.image.load('Sprite/pacman.png')
 
 class Entity(pg.sprite.Sprite):
 
@@ -67,44 +46,36 @@ class Entity(pg.sprite.Sprite):
         # Mettre à jour l'affichage
         pg.display.flip()
 
+    # Métode pour savoir si l'entité est sur une case
+    def Position(self):
+        if self.x % 36 == 0 and self.y % 36 == 0:
+            return True
+        else:
+            return False
+    
     # Méthode pour déplacer l'entité
     # A modifier après tests (la valeur 1)
-    def Mouvement(self, vitesse):
-        self.vitesse = vitesse
-
-        haut = self.y + 1
-        bas = self.y - 1
-        gauche = self.x - 1
-        droite = self.x + 1
+    def Mouvement(self, vitesse, direction):
+        self.direction = direction
+        if self.direction == 'HAUT':
+            self.y -= vitesse
+        elif self.direction == 'BAS':
+            self.y += vitesse
+        elif self.direction == 'GAUCHE':
+            self.x -= vitesse
+        elif self.direction == 'DROITE':
+            self.x += vitesse
         
     # Gestion des collisions
-    def Collision(self):
-        pass
-
+    def Collision(self, entity):
+        if self.rect.colliderect(entity.rect):
+            return True
+        
     # Constructeur de la classe
     def __init__(self, x, y, sprite):
         self.x = x
         self.y = y
         self.sprite = sprite
-
+        self.rect = self.sprite.get_rect()
 
         super().__init__()
-
-        
-
-
-# Boucle principale pour garder la fenêtre ouverte
-running = True
-while running:
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            running = False
-    
-
-    # Afficher les éléments
-    Affichage(screen, image)
-
-
-
-# Quitter Pygame
-pg.quit()
