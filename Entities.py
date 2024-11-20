@@ -46,7 +46,7 @@ class Entity(pg.sprite.Sprite):
         # Mettre à jour l'affichage
         pg.display.flip()
 
-    # Métode pour savoir si l'entité est sur une case
+    # Méthode pour savoir si l'entité est sur une case
     def Position(self):
         if self.x % 36 == 0 and self.y % 36 == 0:
             return True
@@ -65,7 +65,10 @@ class Entity(pg.sprite.Sprite):
             self.x -= vitesse
         elif self.direction == 'DROITE':
             self.x += vitesse
-        
+    
+    def get_position(self):
+        return self.y // 36 , self.x // 36
+    
     # Gestion des collisions
     def Collision(self, entity):
         if self.rect.colliderect(entity.rect):
