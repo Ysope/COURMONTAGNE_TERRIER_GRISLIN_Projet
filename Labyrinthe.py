@@ -7,6 +7,7 @@ class Labyrinthe:
         self.height = height
         self.labyrinthe = labyrinthe
         self.wall_thickness = 5  # Épaisseur du mur
+        self.draw()
 
     def draw(self):
         for i in range(len(self.labyrinthe)):
@@ -17,6 +18,7 @@ class Labyrinthe:
                     self.draw_walls(x, y, i, j)
                 elif self.labyrinthe[i][j] == 0:
                     pygame.draw.circle(self.screen, (255, 255, 0), (x + self.width // 2, y + self.height // 2), 3)
+        self.logo()
 
     def draw_walls(self, x, y, i, j):
         """Dessine les murs autour d'un bloc '1' en fonction des voisins"""
@@ -32,3 +34,9 @@ class Labyrinthe:
         # Mur droit
         if j == len(self.labyrinthe[i]) - 1 or self.labyrinthe[i][j + 1] == 0:
             pygame.draw.rect(self.screen, (0, 0, 255), (x + self.width - self.wall_thickness, y, self.wall_thickness, self.height))
+
+    def logo(self):
+        #ajouter pacmanlogo.png, dans un des carrés à droite
+        logo = pygame.image.load("./images/pacmanlogo.png")
+        logo = pygame.transform.scale(logo, (5 * self.width -20, 3* self.height))
+        self.screen.blit(logo, (10, 7 * self.height))
