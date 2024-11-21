@@ -1,6 +1,7 @@
 import pygame
 from Labyrinthe import Labyrinthe
 from Matrice import MATRICE
+from Pacman import PACMAN
 
 # Initialiser Pygame
 pygame.init()
@@ -13,6 +14,9 @@ labyrinthe = Labyrinthe(screen, 36, 36, MATRICE)
 
 # Dessiner le labyrinthe
 labyrinthe.draw()
+
+# Afficher Pacman sur le plateau
+pacman = PACMAN.afficher_pacman(screen)
 
 # Mettre à jour l'affichage
 pygame.display.flip()
@@ -39,6 +43,7 @@ def afficher_popup(screen):
 def redessiner_plateau(screen, labyrinthe):
     screen.fill((0, 0, 0))  # Effacer l'écran
     labyrinthe.draw()
+    pacman.Affichage(screen)  # Redessiner Pacman
     pygame.display.flip()
 
 # Boucle principale pour garder la fenêtre ouverte
@@ -59,10 +64,25 @@ while running:
                 if event.key == pygame.K_p or event.key == pygame.K_ESCAPE:
                     paused = True
                     afficher_popup(screen)
+                elif event.key == pygame.K_RIGHT:
+                    if pacman.tester_deplacement('DROITE'):
+                        PACMAN.pacmanDroite(pacman)
+                        redessiner_plateau(screen, labyrinthe)
+                elif event.key == pygame.K_LEFT:
+                    if pacman.tester_deplacement('GAUCHE'):
+                        PACMAN.pacmanGauche(pacman)
+                        redessiner_plateau(screen, labyrinthe)
+                elif event.key == pygame.K_UP:
+                    if pacman.tester_deplacement('HAUT'):
+                        PACMAN.pacmanHaut(pacman)
+                        redessiner_plateau(screen, labyrinthe)
+                elif event.key == pygame.K_DOWN:
+                    if pacman.tester_deplacement('BAS'):
+                        PACMAN.pacmanBas(pacman)
+                        redessiner_plateau(screen, labyrinthe)
 
     if not paused:
         # Mettre à jour le jeu ici (par exemple, déplacer les entités, etc.)
         pass
-
 # Quitter Pygame
 pygame.quit()
