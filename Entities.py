@@ -29,8 +29,6 @@ class Sprite:
 
 image = Sprite.sprites[1]
 """
-# Charger l'image
-# image = pg.image.load('Sprite/pacman.png')
 
 class Entity(pg.sprite.Sprite):
 
@@ -46,14 +44,18 @@ class Entity(pg.sprite.Sprite):
         # Mettre à jour l'affichage
         pg.display.flip()
 
-    # Méthode pour savoir si l'entité est sur une case
-    def Position(self):
+    # Métode pour savoir si l'entité est sur une case
+    def SurCase(self):
         if self.x % 36 == 0 and self.y % 36 == 0:
             return True
         else:
             return False
     
-    # Méthode pour déplacer l'entité
+    # Méthode pour obtenir la position de l'entité
+    def get_position(self):
+        return self.y // 36 , self.x // 36
+    
+       # Méthode pour déplacer l'entité
     # A modifier après tests (la valeur 1)
     def Mouvement(self, vitesse, direction, screen):
         self.direction = direction
@@ -69,15 +71,12 @@ class Entity(pg.sprite.Sprite):
             self.x += vitesse
             if self.x >= screen.get_width():
                 self.x = 0
-    
-    def get_position(self):
-        return self.y // 36 , self.x // 36
-    
+        
     # Gestion des collisions
     def Collision(self, entity):
         if self.rect.colliderect(entity.rect):
             return True
-
+          
     def stop(self):
         self.x = self.x // 36 * 36
         self.y = self.y // 36 * 36
