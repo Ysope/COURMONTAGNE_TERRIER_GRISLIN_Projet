@@ -3,86 +3,75 @@ from Labyrinthe import Labyrinthe
 from Matrice import MATRICE
 from Pacman import PACMAN
 
+TAILLE_CELLULE = 36
+LIGNE = len(MATRICE) - 1
+COLLONE = len(MATRICE[0])
+
 # Initialiser Pygame
 pygame.init()
 
 # Définir les dimensions de la fenêtre
-screen = pygame.display.set_mode((36*21, 36*22))
+screen = pygame.display.set_mode((TAILLE_CELLULE * LIGNE, TAILLE_CELLULE * COLLONE))
 
-# Créer une instance de la classe Labyrinthe
-labyrinthe = Labyrinthe(screen, 36, 36, MATRICE)
-
-# Dessiner le labyrinthe
+# Créer une instance de la classe Labyrinthe et l'afficher
+labyrinthe = Labyrinthe(screen, TAILLE_CELLULE, TAILLE_CELLULE, MATRICE)
 labyrinthe.draw()
 
 # Afficher Pacman sur le plateau
-pacman = PACMAN.afficher_pacman(screen)
+pacman = PACMAN(10 * TAILLE_CELLULE, 12 * TAILLE_CELLULE, 'pacman.png')
+pacman.Affichage(screen)
 
 # Mettre à jour l'affichage
 pygame.display.flip()
 
-def afficher_popup(screen):
-    font = pygame.font.Font(None, 36)
-    # Rendre le texte "Jeu en pause"
-    pause_text = font.render("Jeu en pause", True, (255, 255, 255))
-    pause_rect = pause_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2 - 20))
-    
-    # Rendre le texte "Appuyez sur Q pour quitter ou R pour reprendre"
-    instruction_text = font.render("Appuyez sur Echap pour quitter ou R pour reprendre.", True, (255, 255, 255))
-    instruction_rect = instruction_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2 + 20))
-    
-    # Dessiner les rectangles de fond
-    pygame.draw.rect(screen, (0, 0, 0), pause_rect.inflate(20, 20))
-    pygame.draw.rect(screen, (0, 0, 0), instruction_rect.inflate(20, 20))
-    
-    # Blitter les textes sur l'écran
-    screen.blit(pause_text, pause_rect)
-    screen.blit(instruction_text, instruction_rect)
-    pygame.display.flip()
 
-def redessiner_plateau(screen, labyrinthe):
+def redessiner_plateau(screen, labyrinthe, pacman):
     screen.fill((0, 0, 0))  # Effacer l'écran
     labyrinthe.draw()
     pacman.Affichage(screen)  # Redessiner Pacman
     pygame.display.flip()
 
-# Boucle principale pour garder la fenêtre ouverte
+
+# Variables de gestion
+nouveau_mouvement = None
+mouvement_actuel = None
+prochain_mouvement = None
 running = True
-paused = False
+
+# Gestion du temps
+clock = pygame.time.Clock()
+
+# Boucle principale
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN:
-            if paused:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
-                elif event.key == pygame.K_r:
-                    paused = False
-                    redessiner_plateau(screen, labyrinthe)
-            else:
-                if event.key == pygame.K_p or event.key == pygame.K_ESCAPE:
-                    paused = True
-                    afficher_popup(screen)
-                elif event.key == pygame.K_RIGHT:
-                    if pacman.tester_deplacement('DROITE'):
-                        PACMAN.pacmanDroite(pacman)
-                        redessiner_plateau(screen, labyrinthe)
-                elif event.key == pygame.K_LEFT:
-                    if pacman.tester_deplacement('GAUCHE'):
-                        PACMAN.pacmanGauche(pacman)
-                        redessiner_plateau(screen, labyrinthe)
-                elif event.key == pygame.K_UP:
-                    if pacman.tester_deplacement('HAUT'):
-                        PACMAN.pacmanHaut(pacman)
-                        redessiner_plateau(screen, labyrinthe)
-                elif event.key == pygame.K_DOWN:
-                    if pacman.tester_deplacement('BAS'):
-                        PACMAN.pacmanBas(pacman)
-                        redessiner_plateau(screen, labyrinthe)
+            if event.key == pygame.K_RIGHT:
+                prochain_mouvement = 'DROITE'
+            elif event.key == pygame.K_LEFT:
+                prochain_mouvement = 'GAUCHE'
+            elif event.key == pygame.K_UP:
+                prochain_mouvement = 'HAUT'
+            elif event.key == pygame.K_DOWN:
+                prochain_mouvement = 'BAS'
 
-    if not paused:
-        # Mettre à jour le jeu ici (par exemple, déplacer les entités, etc.)
-        pass
+    # Appliquer un nouveau mouvement si demandé
+    if prochain_mouvement:
+        if pacman.tester_deplacement(prochain_mouvement):
+            mouvement_actuel = prochain_mouvement
+            prochain_mouvement = None  # Le prochain mouvement devient actif
+
+    # Continuer le mouvement actuel si possible
+    if mouvement_actuel:
+        if pacman.tester_deplacement(mouvement_actuel):
+            pacman.Mouvement(36, mouvement_actuel, screen)
+            redessiner_plateau(screen, labyrinthe, pacman)
+        else:
+            mouvement_actuel = None  # Arrêter si le mouvement n'est plus possible
+
+    # Limiter la boucle à 5 frames par seconde (contrôle de la vitesse)
+    clock.tick(5)
+
 # Quitter Pygame
 pygame.quit()
