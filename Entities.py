@@ -29,8 +29,6 @@ class Sprite:
 
 image = Sprite.sprites[1]
 """
-# Charger l'image
-# image = pg.image.load('Sprite/pacman.png')
 
 class Entity(pg.sprite.Sprite):
 
@@ -47,11 +45,15 @@ class Entity(pg.sprite.Sprite):
         pg.display.flip()
 
     # Métode pour savoir si l'entité est sur une case
-    def Position(self):
+    def SurCase(self):
         if self.x % 36 == 0 and self.y % 36 == 0:
             return True
         else:
             return False
+    
+    # Méthode pour obtenir la position de l'entité
+    def get_position(self):
+        return self.y // 36 , self.x // 36
     
     # Méthode pour déplacer l'entité
     # A modifier après tests (la valeur 1)
