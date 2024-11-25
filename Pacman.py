@@ -1,7 +1,30 @@
-# TO DO :
-# Mouvements (Gérer les touches)
+import pygame as pg
+from Entities import Entity
+from Matrice import MATRICE
+from Graphe import m_graphe
+
+class PACMAN(Entity):
+
+    def __init__(self, x, y, sprite):
+        super().__init__(x, y, sprite)
+
+    # Mouvement de Pacman
+    def tester_deplacement(self, direction):
+        position = self.get_position()
+        x, y = position
+
+        if (x, y) in m_graphe and m_graphe[(x, y)][1][direction] is not None:
+            return True
+
+        return False
+
+
+#Disparition des points si pacman mange un point
+
 # Les cerises (mange cerise -> nbr de points + 100pts) (NIVEAU 1)
+
 # Les pastèques (mange pastèque -> nbr de points + 500pts)
+
 # Les fraises (mange fraise -> nbr de points + 300pts)
 
 # Les PacGum (mange PacGum -> nbr de points + 10pts)
