@@ -57,16 +57,16 @@ class Entity(pg.sprite.Sprite):
     
     # Méthode pour déplacer l'entité
     # A modifier après tests (la valeur 1)
-    def Mouvement(self, vitesse, direction):
+    def Mouvement(self, direction):
         self.direction = direction
         if self.direction == 'HAUT':
-            self.y -= vitesse
+            self.y -= self.vitesse
         elif self.direction == 'BAS':
-            self.y += vitesse
+            self.y += self.vitesse
         elif self.direction == 'GAUCHE':
-            self.x -= vitesse
+            self.x -= self.vitesse
         elif self.direction == 'DROITE':
-            self.x += vitesse
+            self.x += self.vitesse
         
     # Gestion des collisions
     def Collision(self, entity):
@@ -74,9 +74,10 @@ class Entity(pg.sprite.Sprite):
             return True
         
     # Constructeur de la classe
-    def __init__(self, x, y, sprite):
+    def __init__(self, x, y, sprite, vitesse):
         self.x = x
         self.y = y
+        self.vitesse = vitesse
         self.sprite = sprite
         self.rect = self.sprite.get_rect()
 

@@ -1,7 +1,6 @@
 # TO DO :
 # Mouvements (Gérer le comportement des fantômes)
 
-# Nouvelle méthode ou dans méthode Fuite ????
 # Disparition (Les fantômes disparaissent (deviennent des yeux) + rentre à la maison)
 
 # Les Super PacGum (Les fantômes deviennent bleus + fuis Pacman)
@@ -20,51 +19,61 @@ from Graphe import m_graphe
 
 class Fantome(Entity):
 
-    # Méthode qui rends les fantomes bleus et les fait fuir Pacman
+    """
+    Méthode qui rends les fantomes bleus et les fait fuir Pacman
+    Self = Attributs de Entitiy + Fantome
+    """
     def Fuite(self):
         duree = 6
         # Pour une durée de 6 secondes (remplacer la boucle for c'est pas beau + marche pas)
         for i in range(duree):
             self.sprite = pg.image.load('Sprite/Fantome_Bleu.png')
             self.vitesse = 9
-            self.Mouvement(self.vitesse, self.direction)
+            self.Mouvement(self.direction)
         
         # Changer l'état des fantomes si ils sont touchés par Pacman
         if(self.Collision() == True):
             self.sprite = pg.image.load('Sprite/Yeux.png')
- 
     
-    # Méthode pour déplacer l'entité
-    def Mouvement_Fantomes(self, vitesse, direction, position_pacman):
+    """
+    Méthode pour déplacer l'entité
+    Self = Attributs de Entitiy + Fantome
+    direction = direction de déplacement
+    position_pacman = position de Pacman
+    """
+    def Mouvement_Fantomes(self, direction, position_pacman):
         
         match self.name:
             case 'Blinky':
                 # Se déplace sur le plus court chemin vers Pacman
                 self.direction = self.follow_pacman(position_pacman)
-                self.Mouvement(vitesse, self.direction)
+                self.Mouvement (self.direction)
 
             case 'Pinky':
                 # Se déplace 4 cases avant Pacman
                 self.direction = self.get_fantome_direction(self, m_graphe, self.position, position_pacman, direction)
-                self.Mouvement(vitesse, self.direction)
+                self.Mouvement (self.direction)
                 
             case 'Inky':
                 # Se déplace 4 cases devant Pacman + des fois à l'opposé
                 self.direction = random.choice(self.follow_pacman(position_pacman),random.choice(['HAUT', 'BAS', 'GAUCHE', 'DROITE']))
-                self.Mouvement(vitesse, self.direction)
+                self.Mouvement(self.direction)
             case 'Clyde':
                 # Définir la direction
-                self.direction = random.choice(['HAUT', 'BAS', 'GAUCHE', 'DROITE'])
-                self.Mouvement(vitesse, self.direction)
-            
-# Constructeur de la méthode Fantome
+                self.direction = random.choice([dir for dir, pos in m_graphe[self.get_position()][1].items() if pos is not None])
+                self.Mouvement(self.direction)
+
+    """      
+    Constructeur de la méthode Fantome
+    x = position en x
+    y = position en y
+    sprite = sprite du fantome
+    name = nom du fantome
+    """
     def __init__(self, x, y, sprite, name):
 
         # Appeler le constructeur de la classe mère
         super().__init__()
-
-        # Définir la vitesse du fantôme (pixels par seconde)
-        self.vitesse = 18
 
         # Définir les noms des fantômes
         self.name = name
@@ -72,11 +81,12 @@ class Fantome(Entity):
         # Définir l'image du fantôme
         self.sprite = pg.image.load('Sprite/fantome.png')
 
-
-
-
-# Méthodes du plus court chemin
-
+    """
+    Méthode pour suivre Pacman
+    self = Attributs de Entitiy + Fantome
+    m_graphe = Graphe du jeu
+    position_pacman = position de Pacman
+    """
     def follow_pacman(self, position_pacman):
         path = self.bfs_shortest_path(m_graphe, self.get_position(), position_pacman)
         if len(path) > 1:
@@ -84,8 +94,14 @@ class Fantome(Entity):
             for direction, neighbor in m_graphe[self.get_position()][1].items():
                 if neighbor == next_pos:
                     return direction
-                            
 
+    """                  
+    Méthode pour trouver le plus court chemin
+    self = Attributs de Entitiy + Fantome
+    graph = Graphe du jeu
+    start = position de départ
+    goal = position d'arrivée
+    """
     def bfs_shortest_path(self, graph, start, goal):
         
         # Parcours en largeur pour trouver le plus court chemin dans le graphe.
@@ -113,7 +129,13 @@ class Fantome(Entity):
 
         return []  # Aucun chemin trouvé
 
-
+    """
+    Méthode pour trouver la position cible devant
+    self = Attributs de Entitiy + Fantome
+    graph = Graphe du jeu
+    pacman_pos = position de Pacman
+    pacman_direction = direction de Pacman
+    """
     def find_target_position(self, graph, pacman_pos, pacman_direction):
         
         # Trouver la position cible devant Pac-Man en fonction de sa direction.
@@ -129,7 +151,14 @@ class Fantome(Entity):
 
         return current_pos
 
-
+    """
+    Méthode pour obtenir la direction du fantôme
+    self = Attributs de Entitiy + Fantome
+    graph = Graphe du jeu
+    fantome_pos = position du fantôme
+    pacman_pos = position de Pacman
+    pacman_direction = direction de Pacman
+    """
     def get_fantome_direction(self, graph, fantome_pos, pacman_pos, pacman_direction):
         
         # Calculer la direction que le fantôme doit prendre pour aller devant Pac-Man.
