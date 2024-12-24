@@ -71,7 +71,9 @@ class Entity(pg.sprite.Sprite):
             self.x += vitesse
             if self.x >= screen.get_width():
                 self.x = 0
-        
+        self.rect.topleft = (self.x, self.y)
+        self.Affichage(screen)
+
     # Gestion des collisions
     def Collision(self, entity):
         if self.rect.colliderect(entity.rect):
@@ -86,6 +88,6 @@ class Entity(pg.sprite.Sprite):
         self.x = x
         self.y = y
         self.sprite = pg.image.load(sprite)
-        #self.rect = self.sprite.get_rect()
-
         super().__init__()
+        self.rect = self.sprite.get_rect()
+        self.rect.topleft = (self.x, self.y)

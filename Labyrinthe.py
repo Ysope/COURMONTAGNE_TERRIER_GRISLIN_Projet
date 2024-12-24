@@ -17,6 +17,11 @@ class Labyrinthe:
                     self.draw_walls(x, y, i, j)
                 elif self.labyrinthe[i][j] == 0:
                     pygame.draw.circle(self.screen, (255, 255, 0), (x + self.width // 2, y + self.height // 2), 3)
+                elif self.labyrinthe[i][j] == 3:
+                    pygame.draw.circle(self.screen, (255, 255, 0), (x + self.width // 2, y + self.height // 2), 5)
+                elif self.labyrinthe[i][j] == -1:
+                    pygame.draw.rect(self.screen, (0, 0, 0), (x, y, self.width, self.height))
+
 
     def draw_walls(self, x, y, i, j):
         """Dessine les murs autour d'un bloc '1' en fonction des voisins"""

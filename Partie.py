@@ -1,77 +1,88 @@
-import pygame
 from Labyrinthe import Labyrinthe
+from Graphe import m_graphe
 from Matrice import MATRICE
 from Pacman import PACMAN
-
-TAILLE_CELLULE = 36
-LIGNE = len(MATRICE) - 1
-COLLONE = len(MATRICE[0])
-
-# Initialiser Pygame
-pygame.init()
-
-# Définir les dimensions de la fenêtre
-screen = pygame.display.set_mode((TAILLE_CELLULE * LIGNE, TAILLE_CELLULE * COLLONE))
-
-# Créer une instance de la classe Labyrinthe et l'afficher
-labyrinthe = Labyrinthe(screen, TAILLE_CELLULE, TAILLE_CELLULE, MATRICE)
-labyrinthe.draw()
-
-# Afficher Pacman sur le plateau
-pacman = PACMAN(10 * TAILLE_CELLULE, 12 * TAILLE_CELLULE, 'pacman.png')
-pacman.Affichage(screen)
-
-# Mettre à jour l'affichage
-pygame.display.flip()
+from Fantomes import Fantome
+import pygame
+intervalle_pacman = 300  # En ms
+intervalle_fantomes = 400  # En ms
 
 
-def redessiner_plateau(screen, labyrinthe, pacman):
-    screen.fill((0, 0, 0))  # Effacer l'écran
-    labyrinthe.draw()
-    pacman.Affichage(screen)  # Redessiner Pacman
-    pygame.display.flip()
+SUPER_MODE_END = pygame.USEREVENT + 1
+
+class Partie:
+
+    def __init__(self):
+        self.ligne =  len(MATRICE) - 1
+        self.colonne = len(MATRICE[0])
+        self.taille_cellule = 36
+        self.running = True
+        self.intervalle_pacman = intervalle_pacman
+        self.intervalle_fantomes = intervalle_fantomes
+        self.matrice = MATRICE
+        self.m_graphe = m_graphe
+        self.score = 0
+        self.screen = pygame.display.set_mode((self.taille_cellule * self.ligne, self.taille_cellule * self.colonne), pygame.DOUBLEBUF)
+        self.labyrinthe = Labyrinthe(self.screen, self.taille_cellule, self.taille_cellule, MATRICE)
+        #Entities
+        self.pacman = PACMAN(10 * self.taille_cellule, 12 * self.taille_cellule, './Sprite/pacman.png')
+        self.blinky = Fantome(10 * self.taille_cellule, 8 * self.taille_cellule, './Sprite/Blinky.png', 'Blinky')
+        self.pinky = Fantome(10 * self.taille_cellule, 8 * self.taille_cellule, './Sprite/Pinky.png', 'Pinky')
+        self.inky = Fantome(10 * self.taille_cellule, 8 * self.taille_cellule, './Sprite/Inky.png', 'Inky')
+        self.clyde = Fantome(10 * self.taille_cellule, 8 * self.taille_cellule, './Sprite/Clyde.png', 'Clyde')
 
 
-# Variables de gestion
-nouveau_mouvement = None
-mouvement_actuel = None
-prochain_mouvement = None
-running = True
+    def redessiner_plateau(self):
+        self.screen.fill((0, 0, 0))
+        self.labyrinthe.draw()
+        self.pacman.Affichage(self.screen)
+        self.blinky.Affichage(self.screen)
+        self.pinky.Affichage(self.screen)
+        self.inky.Affichage(self.screen)
+        self.clyde.Affichage(self.screen)
+        pygame.display.flip()
 
-# Gestion du temps
-clock = pygame.time.Clock()
+    def collision(self):
+        if self.pacman.rect.collidelist([self.blinky.rect, self.pinky.rect, self.inky.rect, self.clyde.rect]) != -1:
+            if self.pacman.super:
+                if self.pacman.rect.colliderect(self.blinky.rect):
+                    self.blinky.sprite = pygame.image.load('Sprite/Yeux.png')
+                    self.blinky.effraye = False  # Ils ne sont plus effrayés après la collision
+                    self.inky = Fantome(10 * self.taille_cellule, 8 * self.taille_cellule, './Sprite/Inky.png', 'Inky')
+                if self.pacman.rect.colliderect(self.pinky.rect):
+                    self.pinky.sprite = pygame.image.load('Sprite/Yeux.png')
+                    self.pinky.effraye = False
+                    self.pinky = Fantome(10 * self.taille_cellule, 8 * self.taille_cellule, './Sprite/Pinky.png', 'Pinky')
+                if self.pacman.rect.colliderect(self.inky.rect):
+                    self.inky.sprite = pygame.image.load('Sprite/Yeux.png')
+                    self.inky.effraye = False
+                    self.inky = Fantome(10 * self.taille_cellule, 8 * self.taille_cellule, './Sprite/Inky.png', 'Inky')
+                if self.pacman.rect.colliderect(self.clyde.rect):
+                    self.clyde.sprite = pygame.image.load('Sprite/Yeux.png')
+                    self.clyde.effraye = False
+                    #reset le fantome
+                    self.clyde = Fantome(10 * self.taille_cellule, 8 * self.taille_cellule, './Sprite/Clyde.png', 'Clyde')
+            else:
+                self.running = False
 
-# Boucle principale
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                prochain_mouvement = 'DROITE'
-            elif event.key == pygame.K_LEFT:
-                prochain_mouvement = 'GAUCHE'
-            elif event.key == pygame.K_UP:
-                prochain_mouvement = 'HAUT'
-            elif event.key == pygame.K_DOWN:
-                prochain_mouvement = 'BAS'
+    def check_collision_with_pacgum(self):
+        position = self.pacman.get_position()
+        x, y = position
 
-    # Appliquer un nouveau mouvement si demandé
-    if prochain_mouvement:
-        if pacman.tester_deplacement(prochain_mouvement):
-            mouvement_actuel = prochain_mouvement
-            prochain_mouvement = None  # Le prochain mouvement devient actif
+        if self.m_graphe[(x, y)][0] == True:
+            if self.matrice[x][y] == 0:
+                self.m_graphe[(x, y)][0] = False
+                self.matrice[x][y] = -1
+                return 10
+            elif self.matrice[x][y] == 3:
+                self.m_graphe[(x, y)][0] = False
+                self.matrice[x][y] = -1
+                self.pacman.super = True
+                self.pinky.effraye = True
+                self.blinky.effraye = True
+                self.inky.effraye = True
+                self.clyde.effraye = True
+                intervalle_fantomes = 800
+                pygame.time.set_timer(SUPER_MODE_END, 5000)
 
-    # Continuer le mouvement actuel si possible
-    if mouvement_actuel:
-        if pacman.tester_deplacement(mouvement_actuel):
-            pacman.Mouvement(36, mouvement_actuel, screen)
-            redessiner_plateau(screen, labyrinthe, pacman)
-        else:
-            mouvement_actuel = None  # Arrêter si le mouvement n'est plus possible
-
-    # Limiter la boucle à 5 frames par seconde (contrôle de la vitesse)
-    clock.tick(5)
-
-# Quitter Pygame
-pygame.quit()
+        return 0

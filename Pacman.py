@@ -1,12 +1,12 @@
 import pygame as pg
 from Entities import Entity
-from Matrice import MATRICE
 from Graphe import m_graphe
 
 class PACMAN(Entity):
 
     def __init__(self, x, y, sprite):
         super().__init__(x, y, sprite)
+        self.super = False
 
     # Mouvement de Pacman
     def tester_deplacement(self, direction):
@@ -17,6 +17,7 @@ class PACMAN(Entity):
             return True
 
         return False
+
 
 
 #Disparition des points si pacman mange un point
