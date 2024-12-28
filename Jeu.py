@@ -1,96 +1,107 @@
 import pygame
-from Partie import Partie, SUPER_MODE_END, intervalle_pacman, intervalle_fantomes
+from Partie import Partie, SUPER_MODE_END
 
+# Initialisation de Pygame et de la partie
 pygame.init()
-
 partie = Partie()
 
 # Variables de gestion
-nouveau_mouvement = None
-mouvement_actuel = None
-prochain_mouvement = None
+m_nouveau_mouvement = None
+m_mouvement_actuel = None
+m_prochain_mouvement = None
 
 # Gestion du temps
-clock = pygame.time.Clock()
-dernier_deplacement_pacman = pygame.time.get_ticks()
-
-dernier_deplacement_clyde = pygame.time.get_ticks()
-dernier_deplacement_blinky = pygame.time.get_ticks()
-dernier_deplacement_inky = pygame.time.get_ticks()
-dernier_deplacement_pinky = pygame.time.get_ticks()
-
+m_clock = pygame.time.Clock()
+m_dernier_deplacement_pacman = pygame.time.get_ticks()
+m_dernier_deplacement_clyde = pygame.time.get_ticks()
+m_dernier_deplacement_blinky = pygame.time.get_ticks()
+m_dernier_deplacement_inky = pygame.time.get_ticks()
+m_dernier_deplacement_pinky = pygame.time.get_ticks()
 
 # Initialisation plateau
-partie.redessiner_plateau()
+partie.RedessinerPlateau()
 
 # Boucle principale
-while partie.running:
+while partie.v_running:
+    # Gestion des événements
     for event in pygame.event.get():
+        # Si l'événement est de type QUIT, on quitte
         if event.type == pygame.QUIT:
-            partie.running = False
+            partie.v_running = False
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                prochain_mouvement = 'DROITE'
-            elif event.key == pygame.K_LEFT:
-                prochain_mouvement = 'GAUCHE'
-            elif event.key == pygame.K_UP:
-                prochain_mouvement = 'HAUT'
-            elif event.key == pygame.K_DOWN:
-                prochain_mouvement = 'BAS'
+            # Si la partie est en pause, on ne peut que quitter ou reprendre
+            if partie.v_paused:
+                # Si la touche Echap est pressée, on quitte
+                if event.key == pygame.K_ESCAPE:
+                    partie.v_running = False
+                # Si la touche R est pressée, on reprend la partie
+                elif event.key == pygame.K_r:
+                    partie.v_paused = False
+                    partie.RedessinerPlateau()
+            # Si la partie est terminée, on ne peut que recommencer ou quitter
+            elif partie.v_finished:
+                #Si la touche Echap est pressée, on quitte
+                if event.key == pygame.K_ESCAPE:
+                    partie.v_running = False
+                # Si la touche R est pressée, on recommence
+                elif event.key == pygame.K_r:
+                    m_nouveau_mouvement = None
+                    m_mouvement_actuel = None
+                    m_prochain_mouvement = None
+                    partie = Partie()
+                    partie.RedessinerPlateau()
+            else:
+                # Gestion des mouvements
+                mouvements = {
+                    pygame.K_RIGHT: 'DROITE',
+                    pygame.K_LEFT: 'GAUCHE',
+                    pygame.K_UP: 'HAUT',
+                    pygame.K_DOWN: 'BAS'
+                }
+                if event.key in mouvements:
+                    m_prochain_mouvement = mouvements[event.key]
+                # Gestion de la pause
+                elif event.key == pygame.K_p or event.key == pygame.K_ESCAPE:
+                    partie.v_paused = True
+                    partie.AfficherPopup("Partie en pause", "Appuyez sur Echap pour quitter ou R pour rependre")
+        # Gestion de la fin du super mode
         elif event.type == SUPER_MODE_END:
-            partie.pacman.super = False
-            partie.blinky.effraye = False
-            partie.pinky.effraye = False
-            partie.inky.effraye = False
-            partie.clyde.effraye = False
+            partie.FinSuperMode()
 
-            partie.clyde.sprite = pygame.image.load('Sprite/Clyde.png')
-            partie.blinky.sprite = pygame.image.load('Sprite/Blinky.png')
-            partie.pinky.sprite = pygame.image.load('Sprite/Pinky.png')
-            partie.inky.sprite = pygame.image.load('Sprite/Inky.png')
-
-            # Arrêter le timer (si vous voulez éviter de répéter l'événement)
-            pygame.time.set_timer(SUPER_MODE_END, 0)
+    # Si la partie est en pause, on ne fait rien
+    if partie.v_paused or partie.v_finished:
+        continue
 
     # Gestion du temps actuel
-    temps_actuel = pygame.time.get_ticks()
+    m_temps_actuel = pygame.time.get_ticks()
 
     # Déplacer Pac-Man à intervalle régulier
-    if temps_actuel - dernier_deplacement_pacman >= partie.intervalle_pacman:
-        if prochain_mouvement and partie.pacman.tester_deplacement(prochain_mouvement):
-            mouvement_actuel = prochain_mouvement
-            prochain_mouvement = None  # Le prochain mouvement devient actif
+    if m_temps_actuel - m_dernier_deplacement_pacman >= partie.v_pacman.v_intervalle:
+        # Si le prochain mouvement est valide, on le rend actif
+        if m_prochain_mouvement and partie.v_pacman.TesterDeplacement(m_prochain_mouvement):
+            m_mouvement_actuel = m_prochain_mouvement
+            m_prochain_mouvement = None  # Le prochain mouvement devient actif
 
-        if mouvement_actuel and partie.pacman.tester_deplacement(mouvement_actuel):
-            partie.pacman.Mouvement(36, mouvement_actuel, partie.screen)
-            partie.score += partie.check_collision_with_pacgum()
-        dernier_deplacement_pacman = temps_actuel
+        # Si le mouvement actuel est valide, on le déplace
+        if m_mouvement_actuel and partie.v_pacman.TesterDeplacement(m_mouvement_actuel):
+            partie.v_pacman.Mouvement(m_mouvement_actuel, partie.v_screen)
+            partie.CollisionPacgum()
+        m_dernier_deplacement_pacman = m_temps_actuel
 
-    # Déplacer les fantômes à intervalle régulier
-    if temps_actuel - dernier_deplacement_clyde >= partie.intervalle_fantomes:
-        partie.clyde.Mouvement_Fantomes(36, partie.pacman.get_position(), partie.screen, prochain_mouvement)
-        dernier_deplacement_clyde = temps_actuel
-
-    if temps_actuel - dernier_deplacement_blinky >= partie.intervalle_fantomes:
-        partie.blinky.Mouvement_Fantomes(36, partie.pacman.get_position(), partie.screen, prochain_mouvement)
-        dernier_deplacement_blinky = temps_actuel
-
-    if temps_actuel - dernier_deplacement_inky >= partie.intervalle_fantomes:
-        partie.inky.Mouvement_Fantomes(36, partie.pacman.get_position(), partie.screen, prochain_mouvement)
-        dernier_deplacement_inky = temps_actuel
-
-    if temps_actuel - dernier_deplacement_pinky >= partie.intervalle_fantomes:
-        partie.pinky.Mouvement_Fantomes(36, partie.pacman.get_position(), partie.screen, prochain_mouvement)
-        dernier_deplacement_pinky = temps_actuel
+    # Déplacer les fantômes à interval
+    m_dernier_deplacement_clyde = partie.DeplacementTiming(m_temps_actuel, m_prochain_mouvement, m_dernier_deplacement_clyde, partie.v_clyde)
+    m_dernier_deplacement_blinky = partie.DeplacementTiming(m_temps_actuel, m_prochain_mouvement, m_dernier_deplacement_blinky, partie.v_blinky)
+    m_dernier_deplacement_inky = partie.DeplacementTiming(m_temps_actuel, m_prochain_mouvement, m_dernier_deplacement_inky, partie.v_inky)
+    m_dernier_deplacement_pinky = partie.DeplacementTiming(m_temps_actuel, m_prochain_mouvement, m_dernier_deplacement_pinky, partie.v_pinky)
 
     # Redessiner l'écran
-    partie.redessiner_plateau()
+    partie.RedessinerPlateau()
 
     # Gestion des collisions avec les fantomes
-    partie.collision()
+    partie.Collision()
 
     # Limiter la boucle à 60 FPS
-    clock.tick(60)
+    m_clock.tick(60)
 
 # Quitter Pygame
 pygame.quit()

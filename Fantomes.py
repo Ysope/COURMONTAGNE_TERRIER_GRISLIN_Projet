@@ -1,182 +1,95 @@
-# TO DO :
-# Mouvements (Gérer le comportement des fantômes)
-
-# Nouvelle méthode ou dans méthode Fuite ????
-# Disparition (Les fantômes disparaissent (deviennent des yeux) + rentre à la maison)
-
-# Les Super PacGum (Les fantômes deviennent bleus + fuis Pacman)
-# Comportement des fantômes
-#   Rouge(Blinky) : Plus court chemin vers Pacman + sort par défaut de la maison
-#   Rose(Pinky) : Vise 4 cases devant Pacman + sort au bout de 1 seconde
-#   Bleu(Inky) : Comme le Rose mais des fois se déplace à l'opposé de Pacman + sort au bout de 30 pts
-#   Orange(Clyde) : Déplacement aléatoire + sort au bout de 60 pts
-
-
 import pygame as pg
-from pygame.locals import *
 from Entities import Entity
 import random
-from collections import deque
 from Graphe import m_graphe
-
-
-clock = pg.time.Clock()
+from FollowInFrontOf import FollowTarget, GetFantomeDirection
+from Fuite import FindFurthestFirection
 
 class Fantome(Entity):
 
-    # Méthode qui rends les fantomes bleus et les fait fuir Pacman
-    def Fuite(self, graph, pacman_pos, screen):
+    def __init__(self, p_x, p_y, p_sprite, p_name):
+        """Constructeur de la classe Fantome
+        Args :
+            p_x (int) : Position x
+            p_y (int) : Position y
+            p_sprite (str) : Sprite
+            p_name (str) : Nom du fantôme
+        """
+        # Appeler le constructeur de la classe mère
+        super().__init__(p_x, p_y, p_sprite)
+        self.v_spawn = (p_x, p_y)
+        self.v_name = p_name
+        self.v_mort = False
+        self.v_effraye = False
+
+    # Méthode qui rend les fantomes bleus et les fait fuir Pacman
+    def Fuite(self, p_pacmanPos, p_screen):
         """
         Méthode qui rend les fantômes effrayés et les fait fuir dans la direction
         la plus éloignée de Pac-Man.
+        Args :
+            p_pacmanPos (tuple) : Position
+            p_screen (Surface) : Surface de jeu
         """
-        self.sprite = pg.image.load('Sprite/Fantome_Bleu.png')
-
         # Trouver la direction la plus éloignée
-        furthest_direction = self.find_furthest_direction(graph, self.get_position(), pacman_pos)
+        v_furthestDirection = FindFurthestFirection(self.GetPosition(), p_pacmanPos)
 
-        if furthest_direction:
-            self.Mouvement(self.vitesse, furthest_direction, screen)
+        # Déplacer le fantôme si une direction est trouvée
+        if v_furthestDirection:
+            self.Mouvement(v_furthestDirection, p_screen)
 
-
-    # Méthode pour déplacer l'entité
-    def Mouvement_Fantomes(self, vitesse, position_pacman, screen, pacman_direction):
-
-        if self.effraye:
-            self.Fuite(m_graphe, position_pacman, screen)
+    def MouvementFantomes(self, p_positionPacman, p_screen, p_pacmanDirection):
+        """
+        Méthode qui gère le mouvement des fantômes
+        Args :
+            p_positionPacman (tuple) : Position de Pacman
+            p_screen (Surface) : Surface de jeu
+            p_pacmanDirection (str) : Direction de Pacman
+        """
+        if self.v_mort:
+            self.v_direction = FollowTarget(self, (8, 10))  # Retour à la base
+            self.Mouvement(self.v_direction, p_screen)
+            if self.GetPosition() == (8, 10):  # Vérifier si le fantôme est de retour à la base
+                self.v_intervalle = 400
+                self.v_mort = False
+                self.v_sprite = pg.image.load(f'Sprite/'
+                                            f'{self.v_name}.png')
+        elif self.v_effraye:
+            self.Fuite(p_positionPacman, p_screen)
         else:
-            match self.name:
+            match self.v_name:
                 case 'Blinky':
                     # Se déplace sur le plus court chemin vers Pacman
-                    self.direction = self.follow_pacman(position_pacman)
-                    self.Mouvement(vitesse, self.direction, screen)
-
+                    self.v_direction = FollowTarget(self, p_positionPacman)
+                    self.Mouvement(self.v_direction, p_screen)
                 case 'Pinky':
                     # Se déplace 4 cases avant Pacman
-                    self.direction = self.get_fantome_direction(m_graphe, self.get_position(), position_pacman,pacman_direction)
-                    self.Mouvement(vitesse, self.direction, screen)
-
+                    self.v_direction = GetFantomeDirection(m_graphe,
+                                                           self.GetPosition(), p_positionPacman, p_pacmanDirection)
+                    self.Mouvement(self.v_direction, p_screen)
                 case 'Inky':
                     # Se déplace 4 cases devant Pacman + des fois à l'opposé
-                    self.direction = random.choice([self.follow_pacman(position_pacman), random.choice([dir for dir, pos in m_graphe[self.get_position()][1].items() if pos is not None])])
-                    self.Mouvement(vitesse, self.direction, screen)
+                    self.v_direction = random.choice([FollowTarget(self, p_positionPacman),
+                                                      random.choice([direction for direction, pos in
+                                                                   m_graphe[self.GetPosition()][1].items() if pos is not None])])
+                    self.Mouvement(self.v_direction, p_screen)
                 case 'Clyde':
-                    # Définir la direction
-                    self.direction = random.choice([dir for dir, pos in m_graphe[self.get_position()][1].items() if pos is not None])
-                    self.Mouvement(vitesse, self.direction, screen)
+                    # Se déplace aléatoirement
+                    self.v_direction = random.choice([direction for direction, pos
+                                                    in m_graphe[self.GetPosition()][1].items() if pos is not None])
+                    self.Mouvement(self.v_direction, p_screen)
 
-    # Constructeur de la méthode Fantome
-    def __init__(self, x, y, sprite, name):
 
-        # Appeler le constructeur de la classe mère
-        super().__init__(x,y,sprite)
-
-        # Définir la vitesse du fantôme (pixels par seconde)
-        self.vitesse = 18
-
-        # Définir les noms des fantômes
-        self.name = name
-
-        self.effraye = False
+    def Meurt(self):
+        """Méthode qui tue le fantôme"""
+        self.v_mort = True
+        self.v_sprite = pg.image.load('Sprite/Yeux.png')
+        self.v_intervalle = 100
 
 
 
 
-    # Méthodes du plus court chemin
 
-    def follow_pacman(self, position_pacman):
-        path = self.bfs_shortest_path(m_graphe, self.get_position(), position_pacman)
-        if len(path) > 1:
-            next_pos = path[1]  # Se placer derrière Pac-Man
-            for direction, neighbor in m_graphe[self.get_position()][1].items():
-                if neighbor == next_pos:
-                    return direction
-                            
-
-    def bfs_shortest_path(self, graph, start, goal):
-        
-        # Parcours en largeur pour trouver le plus court chemin dans le graphe.
-        
-        queue = deque([(start, [])])  # Chaque élément est (position, chemin_actuel)
-        visited = set()
-
-        while queue:
-            current, path = queue.popleft()
-            if current in visited:
-                continue
-            visited.add(current)
-
-            # Ajouter le chemin actuel à la position
-            path = path + [current]
-
-            # Si nous avons atteint le but, retourner le chemin
-            if current == goal:
-                return path
-
-            # Parcourir les voisins
-            for direction, neighbor in graph[current][1].items():
-                if neighbor and neighbor not in visited:
-                    queue.append((neighbor, path))
-
-        return []  # Aucun chemin trouvé
-
-
-    def find_target_position(self, graph, pacman_pos, pacman_direction):
-        
-        # Trouver la position cible devant Pac-Man en fonction de sa direction.
-        
-        current_pos = pacman_pos
-
-        # Avancer dans la direction de Pac-Man jusqu'à ce qu'il n'y ait plus de chemin
-        for _ in range(3):  # Avancer de 3 étapes max ou jusqu'à un mur
-            next_pos = graph[current_pos][1].get(pacman_direction)
-            if next_pos is None:  # Mur ou fin de chemin
-                break
-            current_pos = next_pos
-
-        return current_pos
-
-
-    def get_fantome_direction(self, graph, fantome_pos, pacman_pos, pacman_direction):
-        
-        # Calculer la direction que le fantôme doit prendre pour aller devant Pac-Man.
-        
-        target_pos = self.find_target_position(graph, pacman_pos, pacman_direction)
-
-        # Calculer le chemin le plus court
-        path = self.bfs_shortest_path(graph, fantome_pos, target_pos)
-
-        if len(path) > 1:
-            # La première étape du chemin est la position actuelle, donc la deuxième indique la direction
-            next_pos = path[1]
-            for direction, neighbor in graph[fantome_pos][1].items():
-                if neighbor == next_pos:
-                    return direction
-        return None
-
-    def find_furthest_direction(self, graph, fantome_pos, pacman_pos):
-        """
-        Trouve la direction qui mène à la position la plus éloignée de Pac-Man.
-        """
-        max_distance = -1
-        best_direction = None
-
-        for direction, neighbor in graph[fantome_pos][1].items():
-            if neighbor:  # Vérifie que la position voisine est valide
-                distance = self.calculate_distance(neighbor, pacman_pos)
-                if distance > max_distance:
-                    max_distance = distance
-                    best_direction = direction
-
-        return best_direction
-
-    def calculate_distance(self, pos1, pos2):
-        """
-        Calcule la distance entre deux positions (x1, y1) et (x2, y2).
-        """
-        x1, y1 = pos1
-        x2, y2 = pos2
-        return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5  # Distance euclidienne
 
 
         

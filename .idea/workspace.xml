@@ -5,15 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f53ce4a9-7314-4de3-b3aa-8b76a6dde4b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Jeu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FollowInFrontOf.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Fuite.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/tests_pacman.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Entities.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Fantomes.py" beforeDir="false" afterPath="$PROJECT_DIR$/Fantomes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graphe.py" beforeDir="false" afterPath="$PROJECT_DIR$/Graphe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jeu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Jeu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Labyrinthe.py" beforeDir="false" afterPath="$PROJECT_DIR$/Labyrinthe.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Matrice.py" beforeDir="false" afterPath="$PROJECT_DIR$/Matrice.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pacman.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Partie.py" beforeDir="false" afterPath="$PROJECT_DIR$/Partie.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pacman.png" beforeDir="false" afterPath="$PROJECT_DIR$/Sprite/pacman.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tests_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tests_interface.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +29,17 @@
       <list>
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -39,7 +54,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Ysope/COURMONTAGNE_TERRIER_GRISLIN_Projet.git&quot;,
-    &quot;accountId&quot;: &quot;a57d3d96-1838-4125-8bc6-1720a4c9a9e7&quot;
+    &quot;accountId&quot;: &quot;6bcc7cf3-2b08-425d-a0fe-693f42708fcd&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -50,26 +65,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Entities.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Fantomes.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Graphe.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Jeu.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Labyrinthe.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Partie.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/killi/OneDrive/Bureau/CoursIUTAmiens/BUT3/Semestre_1/R5.A.8 Qualité dev/COURMONTAGNE_TERRIER_GRISLIN_Projet_New/Sprite&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests in tests_interface.py.executor": "Run",
+    "Python tests.Python tests in tests_pacman.py.executor": "Run",
+    "Python.Entities.executor": "Run",
+    "Python.Fantomes.executor": "Run",
+    "Python.Graphe.executor": "Run",
+    "Python.Jeu.executor": "Run",
+    "Python.Labyrinthe.executor": "Run",
+    "Python.Pacman.executor": "Run",
+    "Python.Partie.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/killi/OneDrive/Bureau/CoursIUTAmiens/BUT3/Semestre_1/R5.A.8 Qualité dev/COURMONTAGNE_TERRIER_GRISLIN_Projet_New/Sprite",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.general",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\killi\OneDrive\Bureau\CoursIUTAmiens\BUT3\Semestre_1\R5.A.8 Qualité dev\COURMONTAGNE_TERRIER_GRISLIN_Projet_New\Sprite" />
@@ -81,8 +100,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-PY-242.21829.153" />
-        <option value="bundled-python-sdk-464836ebc622-b74155a9e76b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.21829.153" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.24807.21" />
+        <option value="bundled-python-sdk-00717045f1d3-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.24807.21" />
       </set>
     </attachedChunks>
   </component>
@@ -107,6 +126,9 @@
       <workItem from="1734086375261" duration="58000" />
       <workItem from="1734110317218" duration="3357000" />
       <workItem from="1734375476049" duration="32000" />
+      <workItem from="1735150616669" duration="1804000" />
+      <workItem from="1735395289321" duration="768000" />
+      <workItem from="1735401163947" duration="21897000" />
     </task>
     <servers />
   </component>
@@ -133,11 +155,17 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Fantomes.coverage" NAME="Fantomes Coverage Results" MODIFIED="1733994744813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$Partie.coverage" NAME="Partie Coverage Results" MODIFIED="1735426094380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Jeu.coverage" NAME="Jeu Coverage Results" MODIFIED="1734112869128" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$Pacman.coverage" NAME="Pacman Coverage Results" MODIFIED="1735410258431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$Fantomes.coverage" NAME="Fantomes Coverage Results" MODIFIED="1735409990862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$Jeu.coverage" NAME="Jeu Coverage Results" MODIFIED="1735429089480" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Pacman.coverage" NAME="Pacman Coverage Results" MODIFIED="1732198590137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Entities.coverage" NAME="Entities Coverage Results" MODIFIED="1733999183038" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Labyrinthe.coverage" NAME="Labyrinthe Coverage Results" MODIFIED="1734003284628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Partie.coverage" NAME="Partie Coverage Results" MODIFIED="1734112220143" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Pacman.coverage" NAME="Pacman Coverage Results" MODIFIED="1732198590137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$Labyrinthe.coverage" NAME="Labyrinthe Coverage Results" MODIFIED="1735410446407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$.coverage" NAME=" Coverage Results" MODIFIED="1735429950757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Graphe.coverage" NAME="Graphe Coverage Results" MODIFIED="1732550114427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

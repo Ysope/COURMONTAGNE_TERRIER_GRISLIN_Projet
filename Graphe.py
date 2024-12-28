@@ -217,7 +217,7 @@ m_graphe = {(1, 1): [True, {'HAUT': None, 'BAS': (2, 1), 'GAUCHE': None, 'DROITE
   {'HAUT': None, 'BAS': None, 'GAUCHE': (12, 7), 'DROITE': (12, 9)}],
  (12, 9): [True,
   {'HAUT': None, 'BAS': None, 'GAUCHE': (12, 8), 'DROITE': (12, 10)}],
- (12, 10): [True,
+ (12, 10): [False,
   {'HAUT': None, 'BAS': None, 'GAUCHE': (12, 9), 'DROITE': (12, 11)}],
  (12, 11): [True,
   {'HAUT': None, 'BAS': None, 'GAUCHE': (12, 10), 'DROITE': (12, 12)}],

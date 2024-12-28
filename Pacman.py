@@ -2,36 +2,31 @@ import pygame as pg
 from Entities import Entity
 from Graphe import m_graphe
 
-class PACMAN(Entity):
+class Pacman(Entity):
 
-    def __init__(self, x, y, sprite):
-        super().__init__(x, y, sprite)
-        self.super = False
+    def __init__(self, p_x, p_y, p_sprite):
+        """Constructeur de la classe Pacman
+        Args:
+            p_x (int): Position x de Pacman
+            p_y (int): Position y de Pacman
+            p_sprite (str): Sprite de Pacman
+        """
+        super().__init__(p_x, p_y, p_sprite, p_intervalle=300)
+        self.v_super = False
 
     # Mouvement de Pacman
-    def tester_deplacement(self, direction):
-        position = self.get_position()
+    def TesterDeplacement(self, p_direction):
+        """Tester si Pacman peut se déplacer dans une direction donnée
+        Args :
+            p_direction (str) : Direction dans laquelle Pacman doit se déplacer
+        Returns :
+            bool : True si Pacman peut se déplacer, False sinon
+        """
+        position = self.GetPosition()
         x, y = position
 
-        if (x, y) in m_graphe and m_graphe[(x, y)][1][direction] is not None:
+        if ((x, y) in m_graphe and m_graphe[(x, y)][1][p_direction]
+                is not None):
             return True
 
         return False
-
-
-
-#Disparition des points si pacman mange un point
-
-# Les cerises (mange cerise -> nbr de points + 100pts) (NIVEAU 1)
-
-# Les pastèques (mange pastèque -> nbr de points + 500pts)
-
-# Les fraises (mange fraise -> nbr de points + 300pts)
-
-# Les PacGum (mange PacGum -> nbr de points + 10pts)
-# Les Super PacGum (mange super PacGum -> nbr de points + 50pts et appel de la classe fantome transformé)
-
-# Les fantômes (mange fantôme -> nbr de points 1er fantome + 200pts, 2ème + 400pts, 3ème + 800pts, 4ème + 1600pts
-# et appel de la classe fantome Disparition)
-
-# Next_input : on stocke la prochaine direction que le joueur veut prendre
