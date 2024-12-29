@@ -1,6 +1,7 @@
 import pygame
 
-class Labyrinthe:
+class Labyrinth:
+    #region Constructeur
     def __init__(self, p_screen, p_width, p_height, p_labyrinthe):
         """Constructeur de la classe Labyrinthe
         Args :
@@ -14,7 +15,9 @@ class Labyrinthe:
         self.v_height = p_height
         self.v_labyrinthe = p_labyrinthe
         self.v_wallThickness = 5  # Épaisseur du mur
+    #endregion
 
+    #region Méthodes
     def Draw(self):
         """Dessine le labyrinthe"""
         for i in range(len(self.v_labyrinthe)):
@@ -56,3 +59,4 @@ class Labyrinthe:
         if p_j == len(self.v_labyrinthe[p_i]) - 1 or self.v_labyrinthe[p_i][p_j + 1] in [0, -1, 3]:
             pygame.draw.rect(self.v_screen, (0, 0, 255),
                              (p_x + self.v_width - self.v_wallThickness, p_y, self.v_wallThickness, self.v_height))
+    #endregion

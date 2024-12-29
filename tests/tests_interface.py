@@ -1,6 +1,6 @@
 import unittest
 import pygame
-from Partie import Partie
+from Party import Partie
 
 class TestGameInterface(unittest.TestCase):
 

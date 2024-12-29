@@ -1,12 +1,13 @@
 import pygame as pg
-from Entities import Entity
+from Entities import Entities
 import random
-from Graphe import m_graphe
+from Graph import m_graphe
 from FollowInFrontOf import FollowTarget, GetFantomeDirection
-from Fuite import FindFurthestFirection
+from Flee import FindFurthestFirection
 
-class Fantome(Entity):
+class Ghosts(Entities):
 
+    #region Constructeur
     def __init__(self, p_x, p_y, p_sprite, p_name):
         """Constructeur de la classe Fantome
         Args :
@@ -21,8 +22,9 @@ class Fantome(Entity):
         self.v_name = p_name
         self.v_mort = False
         self.v_effraye = False
+    #endregion
 
-    # Méthode qui rend les fantomes bleus et les fait fuir Pacman
+    #region Méthodes
     def Fuite(self, p_pacmanPos, p_screen):
         """
         Méthode qui rend les fantômes effrayés et les fait fuir dans la direction
@@ -85,6 +87,7 @@ class Fantome(Entity):
         self.v_mort = True
         self.v_sprite = pg.image.load('Sprite/Yeux.png')
         self.v_intervalle = 100
+    #endregion
 
 
 

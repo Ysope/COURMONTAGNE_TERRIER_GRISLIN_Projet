@@ -1,7 +1,8 @@
 import pygame as pg             # PYGAME package
 
-class Entity(pg.sprite.Sprite):
-    # Constructeur de la classe
+class Entities(pg.sprite.Sprite):
+
+    #region Constructeur
     def __init__(self, p_x, p_y, p_sprite, p_vitesse=36, p_intervalle=400):
         """Constructeur de la classe Entity
         Args :
@@ -16,12 +17,17 @@ class Entity(pg.sprite.Sprite):
         self.v_intervalle = p_intervalle
         self.v_direction = None
         self.v_vitesse = p_vitesse
-        self.v_sprite = pg.image.load(p_sprite)
+        try:
+            self.v_sprite = pg.image.load(p_sprite)
+        except pg.error as e:
+            print(f"Erreur lors du chargement du sprite: {e}")
+            self.v_sprite = pg.Surface((36, 36))  # Créer une surface vide par défaut
         super().__init__()
         self.v_rect = self.v_sprite.get_rect()
         self.v_rect.topleft = (self.v_x, self.v_y)
+    #endregion
 
-
+    #region Methodes
     def Affichage(self, p_screen):
         """Affichage de l'entité
         Args :
@@ -41,7 +47,7 @@ class Entity(pg.sprite.Sprite):
             return True
         else:
             return False
-    
+
 
     def GetPosition(self):
         """Récupère la position de l'entité sur la grille"""
@@ -70,7 +76,6 @@ class Entity(pg.sprite.Sprite):
         self.v_rect.topleft = (self.v_x, self.v_y)
         self.Affichage(p_screen)
 
-    # Gestion des collisions
     def Collision(self, p_entity):
         """Gestion des collisions entre deux entités
         Args :
@@ -78,5 +83,6 @@ class Entity(pg.sprite.Sprite):
         """
         if self.v_rect.colliderect(p_entity.v_rect):
             return True
+    #endregion
 
 

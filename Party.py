@@ -1,8 +1,8 @@
-from Labyrinthe import Labyrinthe
-from Graphe import m_graphe
-from Matrice import m_matrice
+from Labyrinth import Labyrinth
+from Graph import m_graphe
+from Matrix import m_matrice
 from Pacman import Pacman
-from Fantomes import Fantome
+from Ghosts import Ghosts
 import pygame
 import copy
 import os
@@ -12,6 +12,7 @@ SUPER_MODE_END = pygame.USEREVENT + 1
 
 class Partie:
 
+    #region Constructeur
     def __init__(self, p_posPacman=(10, 12), p_posBlinky=(10, 8), p_posPinky=(10, 8), p_posInky=(10, 8), p_posClyde=(10, 8)):
         """Constructeur de la classe Partie
         Args :
@@ -36,22 +37,24 @@ class Partie:
         self.v_totalPacgums = sum(row.count(0) + row.count(3) for row in m_matrice)  # Compter le nombre de pacgums et super pacgums
         self.v_screen = pygame.display.set_mode((self.v_tailleCellule * self.v_ligne
                                                  , self.v_tailleCellule * self.v_colonne), pygame.DOUBLEBUF)
-        self.v_labyrinthe = Labyrinthe(self.v_screen, self.v_tailleCellule, self.v_tailleCellule, self.v_matrice)
+        self.v_labyrinthe = Labyrinth(self.v_screen, self.v_tailleCellule, self.v_tailleCellule, self.v_matrice)
         # Entities
         self.v_pacman = Pacman(p_posPacman[0] * self.v_tailleCellule,
                                p_posPacman[1] * self.v_tailleCellule, os.path.join(m_basePath, 'Sprite/pacman.png'))
-        self.v_blinky = Fantome(p_posBlinky[0] * self.v_tailleCellule,
-                                p_posBlinky[1] * self.v_tailleCellule, os.path.join(m_basePath, 'Sprite/Blinky.png'),
+        self.v_blinky = Ghosts(p_posBlinky[0] * self.v_tailleCellule,
+                               p_posBlinky[1] * self.v_tailleCellule, os.path.join(m_basePath, 'Sprite/Blinky.png'),
                                 'Blinky')
-        self.v_pinky = Fantome(p_posPinky[0] * self.v_tailleCellule,
-                               p_posPinky[1] * self.v_tailleCellule, os.path.join(m_basePath, 'Sprite/Pinky.png'),
+        self.v_pinky = Ghosts(p_posPinky[0] * self.v_tailleCellule,
+                              p_posPinky[1] * self.v_tailleCellule, os.path.join(m_basePath, 'Sprite/Pinky.png'),
                                'Pinky')
-        self.v_inky = Fantome(p_posInky[0] * self.v_tailleCellule,
-                              p_posInky[1] * self.v_tailleCellule, os.path.join(m_basePath, 'Sprite/Inky.png'), 'Inky')
-        self.v_clyde = Fantome(p_posClyde[0] * self.v_tailleCellule,
-                               p_posClyde[1] * self.v_tailleCellule, os.path.join(m_basePath, 'Sprite/Clyde.png'),
+        self.v_inky = Ghosts(p_posInky[0] * self.v_tailleCellule,
+                             p_posInky[1] * self.v_tailleCellule, os.path.join(m_basePath, 'Sprite/Inky.png'), 'Inky')
+        self.v_clyde = Ghosts(p_posClyde[0] * self.v_tailleCellule,
+                              p_posClyde[1] * self.v_tailleCellule, os.path.join(m_basePath, 'Sprite/Clyde.png'),
                                'Clyde')
+    #endregion
 
+    #region Méthodes
     def RedessinerPlateau(self):
         """Redessine le plateau de jeu"""
         self.v_screen.fill((0, 0, 0))
@@ -144,3 +147,4 @@ class Partie:
         font = pygame.font.Font(None, 36)
         score_text = font.render(f"Score: {self.v_score}", True, (255, 255, 255))
         self.v_screen.blit(score_text, (self.v_tailleCellule//2,8*self.v_tailleCellule))
+    #endregion

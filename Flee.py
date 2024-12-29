@@ -1,4 +1,4 @@
-from Graphe import m_graphe
+from Graph import m_graphe
 
 def FindFurthestFirection(p_fantome_pos, p_target_pos):
     """

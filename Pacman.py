@@ -1,9 +1,10 @@
 import pygame as pg
-from Entities import Entity
-from Graphe import m_graphe
+from Entities import Entities
+from Graph import m_graphe
 
-class Pacman(Entity):
+class Pacman(Entities):
 
+    #region Constructeur
     def __init__(self, p_x, p_y, p_sprite):
         """Constructeur de la classe Pacman
         Args:
@@ -13,8 +14,9 @@ class Pacman(Entity):
         """
         super().__init__(p_x, p_y, p_sprite, p_intervalle=300)
         self.v_super = False
+    #endregion
 
-    # Mouvement de Pacman
+    #region Méthodes
     def TesterDeplacement(self, p_direction):
         """Tester si Pacman peut se déplacer dans une direction donnée
         Args :
@@ -30,3 +32,4 @@ class Pacman(Entity):
             return True
 
         return False
+    #endregion

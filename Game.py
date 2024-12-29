@@ -1,5 +1,5 @@
 import pygame
-from Partie import Partie, SUPER_MODE_END
+from Party import Partie, SUPER_MODE_END
 
 # Initialisation de Pygame et de la partie
 pygame.init()
@@ -24,6 +24,7 @@ partie.RedessinerPlateau()
 # Boucle principale
 while partie.v_running:
     # Gestion des événements
+    #region Gestion des événements
     for event in pygame.event.get():
         # Si l'événement est de type QUIT, on quitte
         if event.type == pygame.QUIT:
@@ -67,11 +68,13 @@ while partie.v_running:
         # Gestion de la fin du super mode
         elif event.type == SUPER_MODE_END:
             partie.FinSuperMode()
+    #endregion
 
     # Si la partie est en pause, on ne fait rien
     if partie.v_paused or partie.v_finished:
         continue
 
+    #region Gestion des mouvements
     # Gestion du temps actuel
     m_temps_actuel = pygame.time.get_ticks()
 
@@ -93,6 +96,7 @@ while partie.v_running:
     m_dernier_deplacement_blinky = partie.DeplacementTiming(m_temps_actuel, m_prochain_mouvement, m_dernier_deplacement_blinky, partie.v_blinky)
     m_dernier_deplacement_inky = partie.DeplacementTiming(m_temps_actuel, m_prochain_mouvement, m_dernier_deplacement_inky, partie.v_inky)
     m_dernier_deplacement_pinky = partie.DeplacementTiming(m_temps_actuel, m_prochain_mouvement, m_dernier_deplacement_pinky, partie.v_pinky)
+    #endregion
 
     # Redessiner l'écran
     partie.RedessinerPlateau()

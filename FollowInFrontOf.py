@@ -1,7 +1,6 @@
 from collections import deque
-from Graphe import m_graphe
+from Graph import m_graphe
 
-# Méthodes du plus court chemin
 def BfsShortestPath(p_start, p_goal):
     """
     Trouve le plus court chemin entre deux positions dans le graphe.
