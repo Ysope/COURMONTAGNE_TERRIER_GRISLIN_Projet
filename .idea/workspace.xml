@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f53ce4a9-7314-4de3-b3aa-8b76a6dde4b1" name="Changes" comment="Modification et ajout de tests">
-      <change beforePath="$PROJECT_DIR$/tests/TestPacman.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TestPacman.py" afterDir="false" />
+    <list default="true" id="f53ce4a9-7314-4de3-b3aa-8b76a6dde4b1" name="Changes" comment="Modification des asserts dans TestPacman.py">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ghosts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ghosts.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +124,7 @@
       <workItem from="1735395289321" duration="768000" />
       <workItem from="1735401163947" duration="22070000" />
       <workItem from="1735430331090" duration="1189000" />
-      <workItem from="1735471719525" duration="1291000" />
+      <workItem from="1735471719525" duration="2013000" />
     </task>
     <task id="LOCAL-00001" summary="Modification du système de jeu, du systeme de partie, des tests, factorisation du code et renommage des fonctions et variables">
       <option name="closed" value="true" />
@@ -149,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735472995718</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Modification des asserts dans TestPacman.py">
+      <option name="closed" value="true" />
+      <created>1735473078069</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1735473078069</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,7 +183,8 @@
     <MESSAGE value="Modification du système de jeu, du systeme de partie, des tests, factorisation du code et renommage des fonctions et variables" />
     <MESSAGE value="Ajout des regions, modification nom des fichiers et des classes" />
     <MESSAGE value="Modification et ajout de tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modification et ajout de tests" />
+    <MESSAGE value="Modification des asserts dans TestPacman.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modification des asserts dans TestPacman.py" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Fantomes.coverage" NAME="Fantomes Coverage Results" MODIFIED="1733994744813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -189,7 +199,7 @@
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$Game.coverage" NAME="Game Coverage Results" MODIFIED="1735430734059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Partie.coverage" NAME="Partie Coverage Results" MODIFIED="1734112220143" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$Labyrinthe.coverage" NAME="Labyrinthe Coverage Results" MODIFIED="1735410446407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$.coverage" NAME=" Coverage Results" MODIFIED="1735473020664" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$.coverage" NAME=" Coverage Results" MODIFIED="1735473033780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Graphe.coverage" NAME="Graphe Coverage Results" MODIFIED="1732550114427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

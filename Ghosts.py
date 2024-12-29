@@ -1,9 +1,12 @@
 import pygame as pg
 from Entities import Entities
 import random
+import os
 from Graph import m_graphe
 from FollowInFrontOf import FollowTarget, GetFantomeDirection
 from Flee import FindFurthestFirection
+
+m_basePath = os.path.dirname(os.path.abspath(__file__))
 
 class Ghosts(Entities):
 
@@ -54,8 +57,8 @@ class Ghosts(Entities):
             if self.GetPosition() == (8, 10):  # Vérifier si le fantôme est de retour à la base
                 self.v_intervalle = 400
                 self.v_mort = False
-                self.v_sprite = pg.image.load(f'Sprite/'
-                                            f'{self.v_name}.png')
+                self.v_sprite = pg.image.load(os.path.join(m_basePath,f'Sprite/'
+                                            f'{self.v_name}.png'))
         elif self.v_effraye:
             self.Fuite(p_positionPacman, p_screen)
         else:
@@ -85,7 +88,7 @@ class Ghosts(Entities):
     def Meurt(self):
         """Méthode qui tue le fantôme"""
         self.v_mort = True
-        self.v_sprite = pg.image.load('Sprite/Yeux.png')
+        self.v_sprite = pg.image.load(os.path.join(m_basePath,'Sprite/Yeux.png'))
         self.v_intervalle = 100
     #endregion
 
