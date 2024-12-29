@@ -39,7 +39,7 @@ class TestPacman(unittest.TestCase):
         self.assertEqual(self.v_partie.v_blinky.v_effraye, True)
         self.assertEqual(self.v_partie.v_pinky.v_effraye, True)
         self.assertEqual(self.v_partie.v_inky.v_effraye, True)
-        self.assertEqual(self.v_partie.v_clyde.v_effraye, True)
+        self.assertTrue(self.v_partie.v_clyde.v_effraye)
 
     def testCollisionFantome(self):
         """Test de la collision avec un fantôme"""
@@ -54,7 +54,7 @@ class TestPacman(unittest.TestCase):
         self.v_partie.v_blinky.v_rect.topleft = (self.v_partie.v_blinky.v_x, self.v_partie.v_blinky.v_y)
         # On vérifie que la partie est terminée
         self.v_partie.Collision()
-        self.assertEqual(self.v_partie.v_finished, True)
+        self.assertTrue(self.v_partie.v_finished)
 
     def testMouvementPacman(self):
         """Test du mouvement de Pacman"""
