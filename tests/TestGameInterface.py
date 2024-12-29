@@ -24,6 +24,8 @@ class TestGameInterface(unittest.TestCase):
         self.assertTrue(any(event.type == pygame.KEYDOWN and event.key == pygame.K_p for event in pygame.event.get()))
 
     def testReprendreJeu(self):
+        """Test de la reprise du jeu"""
+        self.v_partie.v_paused = True
         # Simuler l'appui sur la touche reprise
         pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_r))
         self.v_partie.RedessinerPlateau()
@@ -31,12 +33,15 @@ class TestGameInterface(unittest.TestCase):
         self.assertTrue(any(event.type == pygame.KEYDOWN and event.key == pygame.K_r for event in pygame.event.get()))
 
     def testQuitterJeu(self):
+        """Test de sortie du jeu"""
         # Simuler l'appui sur la touche quitter
         pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_ESCAPE))
         # Vérifier si le jeu est quitté
         self.assertTrue(any(event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE for event in pygame.event.get()))
 
     def testRecommencerJeu(self):
+        """Test de redémarrage du jeu"""
+        self.v_partie.v_finished = True
         # Simuler l'appui sur la touche redémarrer
         pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_r))
         self.v_partie.RedessinerPlateau()
