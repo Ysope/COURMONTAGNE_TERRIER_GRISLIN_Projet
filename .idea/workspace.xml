@@ -5,19 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f53ce4a9-7314-4de3-b3aa-8b76a6dde4b1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/TestGhost.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/TestParty.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Entities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Fantomes.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ghosts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FollowInFrontOf.py" beforeDir="false" afterPath="$PROJECT_DIR$/FollowInFrontOf.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Fuite.py" beforeDir="false" afterPath="$PROJECT_DIR$/Flee.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graphe.py" beforeDir="false" afterPath="$PROJECT_DIR$/Graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jeu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labyrinthe.py" beforeDir="false" afterPath="$PROJECT_DIR$/Labyrinth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matrice.py" beforeDir="false" afterPath="$PROJECT_DIR$/Matrix.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pacman.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pacman.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Partie.py" beforeDir="false" afterPath="$PROJECT_DIR$/Party.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/tests_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tests_interface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/tests_pacman.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tests_pacman.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tests_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TestGameInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tests_pacman.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TestPacman.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +60,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python tests.Python tests in TestGameInterface.py.executor": "Run",
+    "Python tests.Python tests in TestParty.py.executor": "Run",
+    "Python tests.Python tests in tests_fantome.py.executor": "Run",
     "Python tests.Python tests in tests_interface.py.executor": "Run",
     "Python tests.Python tests in tests_pacman.py.executor": "Run",
     "Python.Entities.executor": "Run",
@@ -130,7 +126,8 @@
       <workItem from="1735150616669" duration="1804000" />
       <workItem from="1735395289321" duration="768000" />
       <workItem from="1735401163947" duration="22070000" />
-      <workItem from="1735430331090" duration="538000" />
+      <workItem from="1735430331090" duration="1189000" />
+      <workItem from="1735471719525" duration="1231000" />
     </task>
     <task id="LOCAL-00001" summary="Modification du système de jeu, du systeme de partie, des tests, factorisation du code et renommage des fonctions et variables">
       <option name="closed" value="true" />
@@ -140,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735430137999</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Ajout des regions, modification nom des fichiers et des classes">
+      <option name="closed" value="true" />
+      <created>1735430920060</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1735430920060</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +168,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Modification des déplacements, ajout de deux cases dans le graphe, modificaiton du systeme de partie" />
     <MESSAGE value="Modification du système de jeu, du systeme de partie, des tests, factorisation du code et renommage des fonctions et variables" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modification du système de jeu, du systeme de partie, des tests, factorisation du code et renommage des fonctions et variables" />
+    <MESSAGE value="Ajout des regions, modification nom des fichiers et des classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout des regions, modification nom des fichiers et des classes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Fantomes.coverage" NAME="Fantomes Coverage Results" MODIFIED="1733994744813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -178,7 +184,7 @@
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$Game.coverage" NAME="Game Coverage Results" MODIFIED="1735430734059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Partie.coverage" NAME="Partie Coverage Results" MODIFIED="1734112220143" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$Labyrinthe.coverage" NAME="Labyrinthe Coverage Results" MODIFIED="1735410446407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$.coverage" NAME=" Coverage Results" MODIFIED="1735430754331" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet$.coverage" NAME=" Coverage Results" MODIFIED="1735472950757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/COURMONTAGNE_TERRIER_GRISLIN_Projet_New$Graphe.coverage" NAME="Graphe Coverage Results" MODIFIED="1732550114427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

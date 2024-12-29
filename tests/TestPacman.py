@@ -56,6 +56,15 @@ class TestPacman(unittest.TestCase):
         self.v_partie.Collision()
         self.assertEqual(self.v_partie.v_finished, True)
 
+    def testMouvementPacman(self):
+        """Test du mouvement de Pacman"""
+        # On vérifie que le mouvement de pacman est valide
+        self.v_partie.v_pacman.v_x = 13 * self.v_partie.v_tailleCellule
+        self.v_partie.v_pacman.v_y = 10 * self.v_partie.v_tailleCellule
+        self.v_partie.v_pacman.Mouvement('DROITE', self.v_screen)
+        self.assertEqual(self.v_partie.v_pacman.v_x, 14 * self.v_partie.v_tailleCellule)
+        self.assertEqual(self.v_partie.v_pacman.v_y, 10 * self.v_partie.v_tailleCellule)
+
 
 if __name__ == '__main__':
     unittest.main()
